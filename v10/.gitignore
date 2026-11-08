@@ -1,0 +1,39 @@
+# dependencies
+node_modules
+.pnp
+.pnp.*
+
+# build
+dist
+.output
+.vinxi
+build
+
+# testing
+coverage
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# generated blog migration artifacts
+scripts/output
+
+# lighthouse
+lighthouse-reports

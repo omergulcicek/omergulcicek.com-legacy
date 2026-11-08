@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality:
+    # Pinned so the runner's OS upgrade happens when we choose, not mid-week.
+    runs-on: ubuntu-24.04
+    # The build prerenders pages that load posts from Supabase, so CI needs the same
+    # read-only credentials as Vercel (repository secrets; the anon key, not service role).
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # Version comes from "packageManager" in package.json.
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm lint
+
+      - run: pnpm check-types
+
+      - run: pnpm test
+
+      - run: pnpm build
+
+      # The build above is reused; `pnpm lighthouse:ci` would build a second time.
+      - run: pnpm exec lhci autorun
