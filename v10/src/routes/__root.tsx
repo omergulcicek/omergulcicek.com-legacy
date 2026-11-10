@@ -32,6 +32,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 			// Until the stylesheet loads, the browser paints the canvas in the OS theme.
 			{ name: "color-scheme", content: "light dark" },
 			{ name: "author", content: SITE.name },
+			// An archived version at v10.omergulcicek.com: kept out of search so it never competes with the main site.
+			{ name: "robots", content: "noindex, follow" },
 			{
 				name: "google-site-verification",
 				content: SITE.googleSiteVerification
