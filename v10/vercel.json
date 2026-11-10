@@ -1,7 +1,7 @@
 {
 	"$schema": "https://openapi.vercel.sh/vercel.json",
 	"framework": "tanstack-start",
-	"ignoreCommand": "git diff HEAD^ HEAD --quiet . && exit 1 || exit 0",
+	"ignoreCommand": "git diff HEAD^ HEAD --quiet .",
 	"headers": [
 		{
 			"source": "/(.*)",
